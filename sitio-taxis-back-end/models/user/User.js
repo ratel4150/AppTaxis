@@ -1,0 +1,98 @@
+// models/user/User.js
+
+import database from '../../config/index.js';
+import bcrypt from 'bcrypt';
+
+const {Schema} = database
+const userSchema = new Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  roles: [
+    {
+      type: String,
+      enum: [
+        "Candidate or Applicant",
+        "Employer or Company",
+        "Platform Administrator",
+        "Content Moderator",
+        "Anonymous User or Visitor",
+        "Premium User or Subscriber",
+        "Affiliate or Partner",
+        "Career Coach or Job Advisor",
+        "Training Entity",
+        "Placement Agent"
+      ],
+    },
+  ],
+  bio: String,
+  profileImage: String,
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  createdBy: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  updatedAt: Date,
+  updatedBy: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  // Campo de estado más complejo
+  status: {
+    type: String,
+    enum: ['Active', 'Inactive', 'Suspended', 'PendingVerification', 'Banned'],
+    default: 'PendingVerification',
+  },
+  // Otros campos relacionados con el usuario
+  fillPercentage: Number, // Campo para almacenar el porcentaje de llenado
+  missingFields: [String], // Campo para almacenar la lista de campos faltantes
+});
+
+// Método para comparar contraseñas
+userSchema.methods.comparePassword = async function(candidatePassword) {
+  try {
+    const match = await bcrypt.compare(candidatePassword, this.password);
+    return match;
+  } catch (error) {
+    throw new Error('Error al comparar contraseñas');
+  }
+};
+
+// Middleware 'pre' para calcular el porcentaje de llenado antes de guardar
+userSchema.pre('save', function (next) {
+  
+  const excludedFields = ['updatedAt', 'updatedBy', 'createdAt', 'createdBy', '_id', 'roles', '__v', 'missingFields', 'fillPercentage'];
+  const totalFields = Object.keys(userSchema.paths).filter((field) => !excludedFields.includes(field)).length;
+  const filledFields = Object.keys(this._doc).filter((field) => !!this[field] && !excludedFields.includes(field)).length;
+  const fillPercentage = (filledFields / totalFields) * 100;
+  this.fillPercentage = fillPercentage;
+
+
+  const missingFields = Object.keys(userSchema.paths)
+    .filter((field) => !excludedFields.includes(field) && !this[field])
+    .map((field) => field);
+
+  this.missingFields = missingFields;
+  
+  next();
+});
+
+
+
+const User = database.model('User', userSchema);
+
+export default User
