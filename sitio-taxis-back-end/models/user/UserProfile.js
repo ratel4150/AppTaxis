@@ -46,33 +46,24 @@ const userProfileSchema = new Schema({
   status: {
     type: String,
     enum: [
-    "PendingVerification",
-    "Active",
-    "Inactive",
-    "Complete Profile",
-    "Incomplete Profile",
-    "Actively Seeking",
-    "Currently Unavailable",
-    "Pending Interview",
-    "Pending Job Offer",
-    "Current Employee",
-    "New Registration",
-    "Verified Profile",
-    "Unverified Profile",
-    "Complete Employment History",
-    "Portfolio of Projects",
-    "Favorites List",
-    "Advanced Job Preferences",
-    "Recommendations from Previous Employers",
-    "Featured Candidate",
-    "Multiple Interview Invitations",
-    "Signed Contract",
-    "Certifications and Training",
-    "Languages",
-    "Social Media and Online Presence",
-    "Publications and Articles",
-    "Premium Membership",
-    "Application Tracking"
+      "PendingVerification",         // Pendiente de verificación
+      "Active",                     // Activo
+      "Inactive",                   // Inactivo
+      "Complete Profile",           // Perfil completo
+      "Incomplete Profile",         // Perfil incompleto
+      "Available for Service",      // Disponible para servicio
+      "Not Available for Service",  // No disponible para servicio
+      "Pending Interview",          // Pendiente de entrevista
+      "Pending Job Assignment",     // Pendiente de asignación de trabajo
+      "Assigned Job",               // Trabajo asignado
+      "Job Completed",               // Trabajo completado
+      "Pending Payment",            // Pendiente de pago
+      "Payment Received",           // Pago recibido
+      "Vehicle Maintenance",        // Mantenimiento de vehículo
+      "On Break",                   // En pausa
+      "On Duty",                    // En servicio
+      "Off Duty",                   // Fuera de servicio
+      // Agrega más estados según sea necesario para tu lógica de negocio
   ],
     default: 'PendingVerification',
   },
