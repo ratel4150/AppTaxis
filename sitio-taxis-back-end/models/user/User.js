@@ -23,16 +23,16 @@ const userSchema = new Schema({
     {
       type: String,
       enum: [
-        "Candidate or Applicant",
-        "Employer or Company",
-        "Platform Administrator",
-        "Content Moderator",
-        "Anonymous User or Visitor",
-        "Premium User or Subscriber",
-        "Affiliate or Partner",
-        "Career Coach or Job Advisor",
-        "Training Entity",
-        "Placement Agent"
+        "Driver",                      // Conductor de taxi
+        "Passenger",                   // Pasajero
+        "Dispatcher",                  // Despachador
+        "Admin",                       // Administrador de la plataforma de taxis
+        "FleetManager",                // Gerente de flota
+        "CustomerSupport",             // Soporte al cliente
+        "FinancialAnalyst",            // Analista financiero
+        "MarketingSpecialist",         // Especialista en marketing
+        "MaintenanceTechnician",       // Técnico de mantenimiento
+        "SafetyInspector",             // Inspector de seguridad
       ],
     },
   ],
@@ -72,7 +72,7 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
   }
 };
 
-// Middleware 'pre' para calcular el porcentaje de llenado antes de guardar
+// Middleware 'pre' para calcular el porcentaje de llenado antes de guardar prueba
 userSchema.pre('save', function (next) {
   
   const excludedFields = ['updatedAt', 'updatedBy', 'createdAt', 'createdBy', '_id', 'roles', '__v', 'missingFields', 'fillPercentage'];
