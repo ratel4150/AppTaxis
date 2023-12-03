@@ -102,3 +102,45 @@ Manejo de errores: Implementa un manejo de errores adecuado en tu aplicación pa
 Despliegue en producción: Una vez que hayas completado el desarrollo y las pruebas en un entorno local, debes preparar tu aplicación para la implementación en producción. Esto puede implicar configurar un servidor de producción, configurar certificados SSL, ajustar la configuración de seguridad y configurar variables de entorno para la producción.
 
 Monitoreo y escalabilidad: A medida que tu aplicación esté en funcionamiento en producción, debes configurar el monitoreo para asegurarte de que esté disponible y funcionando correctamente. Además, considera la escalabilidad de tu aplicación si esperas un aumento en la carga.   
+models/
+  ├── driver/
+  │   ├── Driver.js                  # Modelo de datos de conductores de taxis
+  │   ├── DriverProfile.js           # Modelo de datos de perfiles de conductores
+  │   ├── DriverExperience.js        # Modelo de datos de experiencia de conductores
+  │   ├── DriverHistory.js           # Modelo de datos de historial de conductores
+  │   ├── DriverRating.js            # Modelo de datos de calificaciones de conductores
+  │   ├── DriverVehicle.js           # Modelo de datos de vehículos de conductores
+  │   ├── DriverPayment.js           # Modelo de datos de pagos para conductores
+  │   ├── DriverSchedule.js          # Modelo de datos de horarios de conductores
+  │   ├── DriverNotification.js      # Modelo de datos de notificaciones para conductores
+  │   ├── DriverInsurance.js         # Modelo de datos de seguros para conductores
+  │   ├── DriverIncome.js            # Modelo de datos de ingresos de conductores
+  │   └── DriverBackgroundCheck.js   # Modelo de datos de verificación de antecedentes de conductores
+  ├── taxi/
+  │   ├── Taxi.js                    # Modelo de datos de taxis
+  │   ├── TaxiLocation.js            # Modelo de datos de ubicación de taxis
+  │   ├── Ride.js                    # Modelo de datos de viajes en taxi
+  │   ├── RideRequest.js             # Modelo de datos de solicitudes de viaje en taxi
+  │   ├── TaxiPayment.js             # Modelo de datos de pagos para viajes en taxi
+  │   ├── TaxiReview.js              # Modelo de datos de revisiones para taxis
+  │   ├── TaxiService.js             # Modelo de datos de servicios ofrecidos por taxis
+  │   ├── TaxiAvailability.js        # Modelo de datos de disponibilidad de taxis
+  │   ├── TaxiCategory.js            # Modelo de datos de categorías de taxis
+  │   ├── TaxiNotification.js        # Modelo de datos de notificaciones para taxis
+  │   ├── TaxiExpense.js             # Modelo de datos de gastos relacionados con taxis
+  │   ├── TaxiMaintenance.js         # Modelo de datos de mantenimiento de taxis
+  │   └── TaxiEarnings.js            # Modelo de datos de ingresos generados por taxis
+  ├── customer/
+  │   ├── Customer.js                # Modelo de datos de clientes
+  │   ├── CustomerProfile.js         # Modelo de datos de perfiles de clientes
+  │   ├── Booking.js                 # Modelo de datos de reservas de taxis
+  │   ├── RideFeedback.js            # Modelo de datos de comentarios para viajes
+  │   ├── CustomerPayment.js         # Modelo de datos de pagos para clientes
+  │   ├── CustomerNotification.js    # Modelo de datos de notificaciones para clientes
+  │   ├── CustomerPreference.js      # Modelo de datos de preferencias de clientes
+  │   ├── CustomerSubscription.js    # Modelo de datos de suscripciones para clientes
+  │   └── CustomerLoyalty.js         # Modelo de datos de programas de lealtad para clientes
+  ├── admin/
+  │   ├── Admin.js                   # Modelo de datos de administradores de la plataforma
+  │   └── SystemLog.js               # Modelo de datos de registros del sistema
+  └── index.js                       # Archivo principal para exportar todos los modelos
