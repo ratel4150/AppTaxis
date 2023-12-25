@@ -1,0 +1,24 @@
+info: GET /users
+info: GET /users
+info: [34mGET[39m [32m/users[39m
+info: [34mGET[39m [32m/users[39m
+info: GET /users
+[90mundefined[39m [[34mGET /users[39m]
+info: GET /users
+info: GET /users
+info: GET /users
+info: GET /users
+error: Error en la ruta GET /users: userController.getAllUsersWithPagination is not a function
+info: GET /users
+error: Error en la ruta GET /users: userController.getAllUsersWithPagination is not a function
+info: GET /users
+error: Error en la ruta GET /users: userController.getAllUsersWithPagination is not a function
+info: GET /users
+error: Error en la ruta GET /users: userController.getAllUsersWithPagination is not a function
+info: GET /users
+error: Error en la ruta GET /users: userController.getAllUsersWithPagination is not a function
+info: GET /users
+error: Error en la ruta GET /users: userController.getAllUsersWithPagination is not a function
+info: GET /users
+info: GET /users
+info: GET /users

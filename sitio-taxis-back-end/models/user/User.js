@@ -13,6 +13,13 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true,
+    validate: {
+      validator: async function (value) {
+        const user = await this.constructor.findOne({ email: value });
+        return !user;
+      },
+      message: 'El correo electrónico ya está en uso',
+    },
     unique: true,
   },
   password: {
@@ -63,7 +70,7 @@ const userSchema = new Schema({
 });
 
 // Método para comparar contraseñas
-userSchema.methods.comparePassword = async function(candidatePassword) {
+userSchema.methods.comparePassword = async function (candidatePassword) {
   try {
     const match = await bcrypt.compare(candidatePassword, this.password);
     return match;

@@ -205,3 +205,16 @@ const userSchema = new Schema({
   fillPercentage: Number, // Campo para almacenar el porcentaje de llenado
   missingFields: [String], // Campo para almacenar la lista de campos faltantes
 });
+
+
+
+
+Tipo de error	Nivel	Descripción	Color (opcional)
+fatal	0	Mensajes críticos	\x1b[31m RED
+error	1	Mensajes de error	\x1b[91m LIGHT_RED
+warn	2	Mensajes de advertencia	\x1b[93m LIGHT_YELLOW
+notice	3	Mensajes importantes	\x1b[92m LIGHT_GREEN
+info	4	Mensajes informativos	\x1b[97m LIGHT_WHITE
+verbose	5	Mensajes detallados	\x1b[96m LIGHT_CYAN
+debug	6	Mensajes para el depurador	\x1b[94m LIGHT_BLUE
+silly	7	Mensajes sin importancia	\x1b[95m LIGHT_MAGENTA

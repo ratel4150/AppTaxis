@@ -2,9 +2,10 @@
 //index.js
 import express from "express";
 import router from "./routes/index.js"; // Cambia la extensión a .mjs
-import logger from "./lib/logger.js";
 
-logger.error("Este es un mensaje de error ")
+import {logger} from "./lib/logger.js";
+
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -15,6 +16,8 @@ app.use(express.json());
 app.use('/', router);
 
 app.listen(port, () => {
-  console.log(`Servidor escuchando en el puerto ${port}`);
+
+  logger.info(`Servidor escuchando en el puerto ${port}`);
+
 });
 

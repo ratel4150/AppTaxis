@@ -1,7 +1,7 @@
 const readPermissionSchemaUser = {
     canRead: (user)=>{
 
-        if (user.roles.includes('Candidate or Applicant')) {
+        if (user.roles.includes('Driver')) {
             // El usuario tiene el rol de Administrador, lo que permite la creación
             return true;
           }//else if (user._id.equals(resource.author)) {

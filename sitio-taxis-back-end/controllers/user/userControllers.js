@@ -74,6 +74,22 @@ const userController = {
       res.status(500).json({ error: 'Error al eliminar el usuario' });
     }
   },
+  getAllUsersWithPagination: async (page, limit, filter) => {
+    try {
+      const skip = (page - 1) * limit;
+
+      const query = User.find(filter)
+        .skip(skip)
+        .limit(parseInt(limit))
+        .select('username email roles bio profileImage createdAt');
+
+      const users = await query.exec();
+
+      return users;
+    } catch (error) {
+      throw new Error(`Error al obtener usuarios con paginación: ${error.message}`);
+    }
+  },
 
   // Otras funciones de controlador aquí
 };
