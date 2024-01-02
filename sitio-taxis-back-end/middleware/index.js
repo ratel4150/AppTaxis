@@ -1,3 +1,5 @@
 import authMiddleware from './authMiddleware/authMiddleware.js'
-console.log(authMiddleware);
-export default authMiddleware
+/* import redisMiddleware from './redisMiddleware/redisMiddleware.js' */
+
+
+export default {authMiddleware}

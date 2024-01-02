@@ -2,11 +2,38 @@
 // routes/user.js
 import express from 'express';
 import controllers from '../../controllers/index.js';
-import authMiddleware from '../../middleware/index.js'
+import  middleware from '../../middleware/index.js'
 import morgan from 'morgan';
 import winston from 'winston';
 import chalk from 'chalk';  // Agrega esta línea para importar chalk
-console.log(authMiddleware);
+import { connect } from '../../services/redis/redisCacheService.js';
+
+
+
+const cacheMiddleware = async (req, res, next) => {
+  try {
+    // Genera una clave única basada en la URL de la solicitud y los parámetros de consulta
+    const cacheKey = `${req.originalUrl || req.url}:${JSON.stringify(req.query)}`;
+    const redisClient = await connect()
+
+    // Intenta obtener los datos desde Redis
+    const cachedData = await redisClient.get(cacheKey);
+
+    if (cachedData) {
+      console.log('Datos recuperados de la caché:', cachedData);
+      res.json(JSON.parse(cachedData));
+    } else {
+      // Si no hay datos en caché, continúa con la ejecución normal y almacena los resultados en caché al final
+      next();
+    }
+  } catch (error) {
+    console.error('Error al interactuar con Redis:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
+
+
 const {userController} = controllers
 const router = express.Router();
 router.use(morgan('combined'));
@@ -38,12 +65,17 @@ router.use(requestLogger);
 
 // Define las rutas para las operaciones de usuario
 // Rutas para usuarios
-router.get('/', authMiddleware.authenticateToken, authMiddleware.checkUserRole(["Driver"]), async (req, res) => {
+router.get('/',middleware.authMiddleware.authenticateToken, middleware.authMiddleware.checkUserRole(["Driver"]),cacheMiddleware, async (req, res) => {
   try {
     const { page = 1, limit = 10, role } = req.query;
     const filter = role ? { roles: role } : {};
+    const redisClient = await connect()
 
     const users = await userController.getAllUsersWithPagination(page, limit, filter);
+
+     // Almacena los resultados en caché con un tiempo de expiración (por ejemplo, 1 minuto)
+     const cacheKey = `${req.originalUrl || req.url}:${JSON.stringify(req.query)}`;
+     await redisClient.set(cacheKey, JSON.stringify(users), 'EX', 60);
 
     res.json(users);
   } catch (error) {
