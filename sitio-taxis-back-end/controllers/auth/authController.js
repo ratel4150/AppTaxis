@@ -6,8 +6,9 @@
 import modelos from '../../models/index.js';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv'
+import Joi from 'joi';
 dotenv.config()
-const {User, UserProfile} = modelos
+const {User, UserRole} = modelos
 
 const secretKey = process.env.JWY_SECRET_KEY || 'raziel'
 console.log(secretKey);
@@ -19,20 +20,33 @@ const authController = {
    login: async (req, res) => {
     try {
       // Obtén las credenciales del cuerpo de la solicitud
+      console.log(req.body);
       const { email, password } = req.body;
 
       // Busca un usuario en la base de datos por su correo electrónico
       const user = await User.findOne({ email });
+    
+      
 
       // Si no se encuentra un usuario o la contraseña no coincide, responde con un error
       if (!user || !user.comparePassword(password)) {
         return res.status(401).json({ error: 'Credenciales inválidas' });
       }
 
+
+       // Encuentra los roles del usuario
+       const userRoles = await UserRole.find({ user: user._id }).populate('role');
+       if (!userRoles) {
+         return res.status(404).json({ error: 'No roles found for the user' });
+       }
+         // Extrae los nombres de los roles
+      const roles = userRoles.map(userRole => userRole.role.name);
+
+
       // Genera un token JWT válido por 1 hora
-      const token = jwt.sign({ username: user.username, roles: user.roles }, secretKey, { expiresIn: '1h' });
+      const token = jwt.sign({ username: user.username, roles: roles }, secretKey, { expiresIn: '1h' });
       console.log(token);
-      res.json({ token });
+      res.json({token: token,username:user.username,rol:user.roles });
     } catch (error) {
       console.error(error);
       
@@ -43,6 +57,19 @@ const authController = {
   // Función para registrar un nuevo usuario
   signup: async (req, res) => {
     try {
+
+      const schema = Joi.object({
+        email: Joi.string().email(),
+        password: Joi.string(),
+    
+        // Agrega otras validaciones según tus necesidades
+      });
+
+      const { error } = schema.validate(req.body);
+
+   /*    if (error) {
+        return res.status(400).json({ error: 'Validación fallida', details: error.details });
+      } */
       // Crea un nuevo usuario a partir de los datos en el cuerpo de la solicitud
       const newUser = new User(req.body);
 

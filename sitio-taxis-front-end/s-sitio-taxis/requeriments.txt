@@ -1,0 +1,49 @@
+my-vite-redux-app/
+|-- src/
+|   |-- atoms/
+|   |   |-- Button/
+|   |   |   |-- Button.js
+|   |   |   |-- ButtonStyles.css
+|   |   |-- Input/
+|   |   |   |-- Input.js
+|   |   |   |-- InputStyles.css
+|   |-- molecules/
+|   |   |-- Form/
+|   |   |   |-- Form.js
+|   |   |   |-- FormStyles.css
+|   |-- organisms/
+|   |   |-- Header/
+|   |   |   |-- Header.js
+|   |   |   |-- HeaderStyles.css
+|   |   |-- Sidebar/
+|   |   |   |-- Sidebar.js
+|   |   |   |-- SidebarStyles.css
+|   |-- templates/
+|   |   |-- MainLayout/
+|   |   |   |-- MainLayout.js
+|   |   |   |-- MainLayoutStyles.css
+|   |-- pages/
+|   |   |-- HomePage/
+|   |   |   |-- HomePage.js
+|   |   |   |-- HomePageStyles.css
+|   |   |-- AboutPage/
+|   |   |   |-- AboutPage.js
+|   |   |   |-- AboutPageStyles.css
+|   |-- app/
+|   |   |-- components/
+|   |   |   |-- Counter/
+|   |   |   |   |-- Counter.js
+|   |   |   |   |-- counterSlice.js
+|   |   |   |   |-- CounterContainer.js
+|   |   |   |   |-- CounterStyles.css
+|   |   |-- store/
+|   |   |   |-- rootReducer.js
+|   |   |   |-- store.js
+|-- assets/
+|   |-- images/
+|   |-- styles/
+|       |-- global.css
+|-- index.html
+|-- main.js
+|-- package.json
+|-- vite.config.js

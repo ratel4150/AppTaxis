@@ -2,10 +2,10 @@ import { createClient } from "redis";
 
 export const connect = async () => {
   const redisClient = createClient({
-    password: "heU1dwFKxiToEwk8tfVTC3whGrjg5iFV",
+    password: "rNUJ3CKkWXFF3RTfreSe57KGFmrzS6NT",
     socket: {
-      host: "redis-10802.c325.us-east-1-4.ec2.cloud.redislabs.com",
-      port: 10802,
+      host: "redis-16888.c267.us-east-1-4.ec2.cloud.redislabs.com",
+      port: 16888,
     },
   });
   redisClient.on("error", (err) => console.log("Redis Client Error", err));
@@ -13,6 +13,8 @@ export const connect = async () => {
   await redisClient.connect();
   return redisClient;
 };
+
+
 /* 
 const prurbs = async()=>{
     const pruebita = await connect()

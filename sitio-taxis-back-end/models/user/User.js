@@ -2,7 +2,7 @@
 
 import database from '../../config/index.js';
 import bcrypt from 'bcrypt';
-
+import UserProfile from './UserProfile.js';
 const {Schema} = database
 const userSchema = new Schema({
   username: {
@@ -43,6 +43,7 @@ const userSchema = new Schema({
       ],
     },
   ],
+
   bio: String,
   profileImage: String,
   createdAt: {
@@ -80,7 +81,16 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
 };
 
 // Middleware 'pre' para calcular el porcentaje de llenado antes de guardar prueba
-userSchema.pre('save', function (next) {
+userSchema.pre('save', async function (next) {
+
+  if (!this.isModified('password')) {
+    return next();
+  }
+
+  const hashedPassword = await bcrypt.hash(this.password, 10);
+  this.password = hashedPassword;
+
+  
   
   const excludedFields = ['updatedAt', 'updatedBy', 'createdAt', 'createdBy', '_id', 'roles', '__v', 'missingFields', 'fillPercentage'];
   const totalFields = Object.keys(userSchema.paths).filter((field) => !excludedFields.includes(field)).length;

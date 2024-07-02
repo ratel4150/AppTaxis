@@ -1,6 +1,6 @@
 import database from '../../config/index.js';
 import bcrypt from 'bcrypt';
-import User from '../index.js';
+import User from './User.js';
 const {Schema} = database
 
 
